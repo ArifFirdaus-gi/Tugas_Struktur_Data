@@ -1,16 +1,16 @@
 #include <iostream>
 using namespace std;
 
-//single linked list
 struct Node
 {
 	int data;
 	struct Node *next;
+	struct Node *prev;
 };
 
-void transerver(struct Node *temp);
-
-void total (struct Node *temp);
+void asc(struct Node *nodeSekarang);
+void dec(struct Node *nodeSekarang);
+void total (struct Node *nodeSekarang);
 
 int main(){
 
@@ -22,45 +22,65 @@ int main(){
 	node2 = new Node;
 	node3 = new Node;
 	
+	
 	node1->data = 10;
 	node1->next = node2;
+	node1->prev = NULL;
 	
 	node2->data = 20;
 	node2->next = node3;
+	node2->prev = node1;
 	
 	node3->data = 30;
 	node3->next = NULL;
+	node3->prev = node2;
 	
-	transerver (node1);
+	cout <<"Ini Asc" <<endl;
+	asc (node1);
+	
+	
+	cout <<"Ini Prev" <<endl;
+	dec (node3);
+	
 	total (node1);
 	
 	cin.get();
 	return 0;
 }
 
-//looping untuk menampilkan data linked list
-void transerver(struct Node *temp)
+void asc(struct Node *nodeSekarang)
 {
 	int i = 1;
-	while (temp != NULL)
-	{
-		cout << "data ke " << i << ": ";
-		cout << temp->data;
-		temp = temp->next;
-		cout << endl;
+	int jumlah = 0;
+	while((nodeSekarang != NULL) && (i <= 3)){
+		cout << "Data ke-"<<i<<": "<<nodeSekarang->data <<endl;
+		nodeSekarang = nodeSekarang->next;
 		i++;
+		jumlah++;
 	}
-	
+	cout << "Jumlah data: " << jumlah <<endl <<endl;
 }
 
-void total (struct Node *temp)
+void dec(struct Node *nodeSekarang){
+	int i = 1;
+	int jumlah = 0;
+	while((nodeSekarang != NULL) && (i <= 3)){
+		cout << "Data ke-"<<i<<": "<<nodeSekarang->data <<endl;
+		nodeSekarang = nodeSekarang->prev;
+		i++;
+		jumlah++;
+	}
+	cout << "Jumlah data: " << jumlah <<endl;
+}
+
+void total (struct Node *nodeSekarang)
 {
 	int i = 1;
 	int total = 0;
-	while (temp != NULL)
+	while (nodeSekarang != NULL)
 	{
-		total += temp->data;
-		temp = temp->next;
+		total += nodeSekarang->data;
+		nodeSekarang = nodeSekarang->next;
 		i++;
 	}
 	cout << "Total nilai adalah: "<<total <<endl;
